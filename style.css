@@ -1,0 +1,31 @@
+/* Define um estilo padrão para todo o documento */
+* {
+    background-color: black; /* Cor de fundo preta */
+    color: white; /* Cor do texto branca */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para o botão 'Pegar pedra' */
+#pedra {
+    background-color: rgb(61, 61, 61); /* Cor de fundo cinza escuro */
+    color: white; /* Cor do texto branca */
+    padding: 10px; /* Espaçamento interno */
+    border: none; /* Remove a borda */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor ao passar por cima */
+    font-size: 16px; /* Tamanho da fonte */
+    margin: 10px; /* Margem ao redor do botão */
+}
+
+/* Mudança de cor do botão quando o mouse passa por cima */
+#pedra:hover {
+    background-color: rgb(80, 80, 80); /* Cor de fundo alterada ao passar o mouse */
+}
+
+/* Estilo para o parágrafo que exibe a quantidade de pedras */
+p {
+    font-size: 20px; /* Tamanho da fonte */
+    margin: 10px; /* Margem ao redor do parágrafo */
+}
