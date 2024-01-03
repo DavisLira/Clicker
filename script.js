@@ -1,25 +1,61 @@
-var pedraButton = document.getElementById("pedra");
-var pedrasSpan = document.getElementById("pedras");
-var exportButton = document.getElementById("exportar");
-var importInput = document.getElementById("importar");
-var pedras = localStorage.getItem("pedras") || 0;
+var salvarJogoButton = document.getElementById("salvar-jogo");
+var carregarJogoInput = document.getElementById("carregar-jogo");
 
-// Função para atualizar o contador de pedras na tela
-function atualizarPedras() {
-    pedrasSpan.innerHTML = pedras;
+var botaoPedra = document.getElementById("botao-pedra");
+var botaoPicaretaMadeira = document.getElementById("botao-picareta-madeira");
+
+var contadorPedrasElement = document.getElementById("quantidade-pedras");
+var pedrasPorSegundoElement = document.getElementById("pedras-por-segundo");
+var custoMadeiraElement = document.getElementById("custo-madeira");
+var quantidadePicaretasElement = document.getElementById("quantidade-picaretas");
+
+var pedrasAtual = parseFloat(localStorage.getItem("quantidade-pedras")) || 0;
+var pedraAutomatica = parseFloat(localStorage.getItem("pedra-automatica")) || 0;
+var custoMadeira = parseFloat(localStorage.getItem("custo-madeira")) || 25;
+var quantidadePicaretasMadeira = parseFloat(localStorage.getItem("quantidade-picaretas-madeira")) || 0;
+
+function atualizarContadores() {
+    contadorPedrasElement.innerHTML = Math.floor(pedrasAtual);
+    pedrasPorSegundoElement.innerHTML = pedraAutomatica.toFixed(2);
+    custoMadeiraElement.innerHTML = custoMadeira;
+    quantidadePicaretasElement.innerHTML = quantidadePicaretasMadeira;
 }
 
-// Evento de clique no botão para pegar pedra
-pedraButton.addEventListener("click", function() {
-    pedras++;
-    localStorage.setItem("pedras", pedras);
-    atualizarPedras();
-});
+function comprarPicaretaMadeira() {
+    if (pedrasAtual >= custoMadeira) {
+        pedrasAtual -= custoMadeira;
+        custoMadeira += 1;
+        pedraAutomatica += 0.1;
+        quantidadePicaretasMadeira++;
+        localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
+        localStorage.setItem("pedra-automatica", pedraAutomatica.toFixed(2));
+        localStorage.setItem("custo-madeira", custoMadeira);
+        localStorage.setItem("quantidade-picaretas-madeira", quantidadePicaretasMadeira);
+        atualizarContadores();
+        if (!intervaloPedraAutomatica) {
+            iniciarPedrasAutomaticas();
+        }
+    }
+}
 
-// Evento de clique no botão para exportar o jogo
-exportButton.addEventListener("click", function() {
+function adicionarPedrasAutomaticamente() {
+    pedrasAtual += pedraAutomatica;
+    localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
+    atualizarContadores();
+}
+
+var intervaloPedraAutomatica;
+
+function iniciarPedrasAutomaticas() {
+    intervaloPedraAutomatica = setInterval(adicionarPedrasAutomaticamente, 1000);
+}
+
+salvarJogoButton.addEventListener("click", function() {
     var jogoData = {
-        pedras: pedras
+        pedrasAtual: pedrasAtual,
+        pedraAutomatica: pedraAutomatica,
+        custoMadeira: custoMadeira,
+        quantidadePicaretasMadeira: quantidadePicaretasMadeira
     };
     var jsonData = JSON.stringify(jogoData);
     var blob = new Blob([jsonData], { type: "application/json" });
@@ -31,17 +67,25 @@ exportButton.addEventListener("click", function() {
     URL.revokeObjectURL(url);
 });
 
-// Evento de mudança no input para importar o jogo
-importInput.addEventListener("change", function(e) {
+carregarJogoInput.addEventListener("change", function(e) {
     var file = e.target.files[0];
     var reader = new FileReader();
     reader.onload = function(event) {
         var jsonData = event.target.result;
         var jogoData = JSON.parse(jsonData);
-        if (jogoData && jogoData.pedras !== undefined) {
-            pedras = jogoData.pedras;
-            localStorage.setItem("pedras", pedras);
-            atualizarPedras();
+        if (jogoData && jogoData.pedrasAtual !== undefined) {
+            pedrasAtual = jogoData.pedrasAtual;
+            pedraAutomatica = jogoData.pedraAutomatica;
+            custoMadeira = jogoData.custoMadeira;
+            quantidadePicaretasMadeira = jogoData.quantidadePicaretasMadeira;
+            localStorage.setItem("quantidade-pedras", pedrasAtual);
+            localStorage.setItem("pedra-automatica", pedraAutomatica);
+            localStorage.setItem("custo-madeira", custoMadeira);
+            localStorage.setItem("quantidade-picaretas-madeira", quantidadePicaretasMadeira);
+            atualizarContadores();
+            if (pedraAutomatica > 0) {
+                iniciarPedrasAutomaticas();
+            }
         } else {
             alert("Arquivo inválido!");
         }
@@ -49,5 +93,18 @@ importInput.addEventListener("change", function(e) {
     reader.readAsText(file);
 });
 
-// Atualizar o contador de pedras na inicialização
-atualizarPedras();
+atualizarContadores();
+
+botaoPedra.addEventListener("click", function() {
+    pedrasAtual++;
+    localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
+    atualizarContadores();
+});
+
+botaoPicaretaMadeira.addEventListener("click", function() {
+    comprarPicaretaMadeira();
+});
+
+if (pedraAutomatica > 0) {
+    iniciarPedrasAutomaticas();
+}

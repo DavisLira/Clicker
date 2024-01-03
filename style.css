@@ -1,31 +1,103 @@
-/* Define um estilo padrão para todo o documento */
+/* Estilo padrão para o documento */
 * {
-    background-color: black; /* Cor de fundo preta */
-    color: white; /* Cor do texto branca */
-    font-family: Arial, sans-serif; /* Fonte padrão */
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Estilos para o botão 'Pegar pedra' */
-#pedra {
-    background-color: rgb(61, 61, 61); /* Cor de fundo cinza escuro */
-    color: white; /* Cor do texto branca */
-    padding: 10px; /* Espaçamento interno */
-    border: none; /* Remove a borda */
-    border-radius: 5px; /* Borda arredondada */
-    cursor: pointer; /* Cursor ao passar por cima */
-    font-size: 16px; /* Tamanho da fonte */
-    margin: 10px; /* Margem ao redor do botão */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Mudança de cor do botão quando o mouse passa por cima */
-#pedra:hover {
-    background-color: rgb(80, 80, 80); /* Cor de fundo alterada ao passar o mouse */
+.container {
+    width: 400px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
 }
 
-/* Estilo para o parágrafo que exibe a quantidade de pedras */
-p {
-    font-size: 20px; /* Tamanho da fonte */
-    margin: 10px; /* Margem ao redor do parágrafo */
+.buttons {
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #555;
+}
+
+.info p {
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls button {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.controls button:hover {
+    background-color: #555;
+}
+
+.import-label {
+    color: #fff;
+    font-size: 14px;
+}
+
+.file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    font-size: 20px;
+}
+
+.file-upload-text {
+    padding: 8px 20px;
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-text:hover {
+    background-color: #555;
 }

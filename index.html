@@ -7,10 +7,25 @@
     <title>Clicker pedra</title>
 </head>
 <body>
-    <button id="pedra" type="button">Pegar pedra</button>
-    <p>Pedras: <span id="pedras">0</span></p>
-    <button id="exportar" type="button">Exportar jogo</button>
-    <input type="file" id="importar" accept=".json">
-    <script src="script.js"></script>
+    <div class="container">
+        <div class="buttons">
+            <button id="botao-pedra" type="button">Pegar pedra</button>
+            <button id="botao-picareta-madeira" type="button">Picareta de Madeira (<span id="custo-madeira">25</span>)</button>
+        </div>
+        <div class="info">
+            <p>Pedras: <span id="quantidade-pedras">0</span></p>
+            <p>Pedras por segundo: <span id="pedras-por-segundo">0</span></p>
+            <p>Quantidade de picaretas de madeira: <span id="quantidade-picaretas">0</span></p>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="exportar" type="button">Salvar jogo</button>
+        <!-- <label for="carregar-jogo" class="import-label">Carregar Jogo:</label> -->
+        <div class="file-upload">
+            <button id="select-file-btn" type="button">Carregar jogo</button>
+            <input type="file" id="carregar-jogo" accept=".json">
+        </div>
+        <script src="script.js"></script>
+    </div>
 </body>
 </html>
