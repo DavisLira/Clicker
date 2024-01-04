@@ -7,21 +7,27 @@
     <title>Clicker pedra</title>
 </head>
 <body>
+    <!-- <div> -->
     <div class="container">
         <div class="buttons">
             <button id="botao-pedra" type="button">Pegar pedra</button>
-            <button id="botao-picareta-madeira" type="button">Picareta de Madeira (<span id="custo-madeira">25</span>)</button>
+            <button id="botao-picareta-madeira" type="button">Picareta de Madeira (<span id="custo-picareta-madeira">25</span>)</button>
+            <button id="botao-picareta-pedra" type="button">Picareta de Pedra (<span id="custo-picareta-pedra">100</span>)</button>
+            <button id="configuracoes" type="button">Configurações</button>
         </div>
         <div class="info">
             <p>Pedras: <span id="quantidade-pedras">0</span></p>
             <p>Pedras por segundo: <span id="pedras-por-segundo">0</span></p>
-            <p>Quantidade de picaretas de madeira: <span id="quantidade-picaretas">0</span></p>
+            <p>Quantidade de picaretas: <span id="quantidade-picaretas">0</span></p>
         </div>
     </div>
     <div class="controls">
         <button id="salvar-jogo" type="button">Salvar jogo</button>
-        <!-- <label for="carregar-jogo" class="import-label">Carregar jogo:</label> -->
-        <input type="file" id="carregar-jogo" accept=".json">
+        <label for="carregar-jogo" class="custom-file-upload">
+            <input type="file" id="carregar-jogo" accept=".json">
+            Carregar jogo
+        </label>
+        <button id="voltar" type="button">Voltar</button>
     </div>
     <script src="script.js"></script>
 </body>

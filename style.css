@@ -16,11 +16,15 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 95%;
+    height: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     background-color: #333;
     border-radius: 8px;
     padding: 20px;
-    text-align: center;
 }
 
 .buttons {
@@ -37,6 +41,8 @@ body {
     margin-right: 10px;
     font-size: 14px;
     transition: background-color 0.3s ease;
+    margin: 10px;
+    display: flex;
 }
 
 .buttons button:hover {
@@ -48,7 +54,7 @@ body {
 }
 
 .controls {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -69,35 +75,27 @@ body {
     background-color: #555;
 }
 
-.import-label {
-    color: #fff;
-    font-size: 14px;
-}
-
-.file-upload {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-}
-
-.file-upload input[type="file"] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    font-size: 20px;
-}
-
-.file-upload-text {
-    padding: 8px 20px;
+.custom-file-upload {
     background-color: #444;
     color: #fff;
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
+    margin-right: 10px;
+    display: inline-block;
+}
+  
+.custom-file-upload:hover {
+    background-color: #555;
 }
 
-.file-upload-text:hover {
-    background-color: #555;
+input[type="file"] {
+    display: none;
+}
+
+#botao-picareta-pedra {
+    visibility: hidden;
 }
