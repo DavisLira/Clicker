@@ -1,12 +1,12 @@
 var salvarJogoButton = document.getElementById("salvar-jogo");
 var carregarJogoInput = document.getElementById("carregar-jogo");
 
-var botaoPedra = document.getElementById("botao-pedra");
+var botaoPegarPedra = document.getElementById("botao-pedra");
 var botaoPicaretaMadeira = document.getElementById("botao-picareta-madeira");
 
 var contadorPedrasElement = document.getElementById("quantidade-pedras");
 var pedrasPorSegundoElement = document.getElementById("pedras-por-segundo");
-var custoMadeiraElement = document.getElementById("custo-madeira");
+var custoPicaretaMadeiraElement = document.getElementById("custo-madeira");
 var quantidadePicaretasElement = document.getElementById("quantidade-picaretas");
 
 var pedrasAtual = parseFloat(localStorage.getItem("quantidade-pedras")) || 0;
@@ -14,12 +14,34 @@ var pedraAutomatica = parseFloat(localStorage.getItem("pedra-automatica")) || 0;
 var custoMadeira = parseFloat(localStorage.getItem("custo-madeira")) || 25;
 var quantidadePicaretasMadeira = parseFloat(localStorage.getItem("quantidade-picaretas-madeira")) || 0;
 
+var intervaloPedraAutomatica;
+
 function atualizarContadores() {
     contadorPedrasElement.innerHTML = Math.floor(pedrasAtual);
     pedrasPorSegundoElement.innerHTML = pedraAutomatica.toFixed(2);
-    custoMadeiraElement.innerHTML = custoMadeira;
+    custoPicaretaMadeiraElement.innerHTML = custoMadeira;
     quantidadePicaretasElement.innerHTML = quantidadePicaretasMadeira;
 }
+
+function adicionarPedrasAutomaticamente() {
+    pedrasAtual += pedraAutomatica;
+    localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
+    atualizarContadores();
+}
+
+function iniciarPedrasAutomaticas() {
+    intervaloPedraAutomatica = setInterval(adicionarPedrasAutomaticamente, 1000);
+}
+
+if (pedraAutomatica > 0) {
+    iniciarPedrasAutomaticas();
+}
+
+botaoPegarPedra.addEventListener("click", function() {
+    pedrasAtual++;
+    localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
+    atualizarContadores();
+});
 
 function comprarPicaretaMadeira() {
     if (pedrasAtual >= custoMadeira) {
@@ -38,17 +60,15 @@ function comprarPicaretaMadeira() {
     }
 }
 
-function adicionarPedrasAutomaticamente() {
-    pedrasAtual += pedraAutomatica;
-    localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
-    atualizarContadores();
-}
+botaoPicaretaMadeira.addEventListener("click", function() {
+    comprarPicaretaMadeira();
+});
 
-var intervaloPedraAutomatica;
 
-function iniciarPedrasAutomaticas() {
-    intervaloPedraAutomatica = setInterval(adicionarPedrasAutomaticamente, 1000);
-}
+
+
+
+atualizarContadores();
 
 salvarJogoButton.addEventListener("click", function() {
     var jogoData = {
@@ -92,19 +112,3 @@ carregarJogoInput.addEventListener("change", function(e) {
     };
     reader.readAsText(file);
 });
-
-atualizarContadores();
-
-botaoPedra.addEventListener("click", function() {
-    pedrasAtual++;
-    localStorage.setItem("quantidade-pedras", pedrasAtual.toFixed(2));
-    atualizarContadores();
-});
-
-botaoPicaretaMadeira.addEventListener("click", function() {
-    comprarPicaretaMadeira();
-});
-
-if (pedraAutomatica > 0) {
-    iniciarPedrasAutomaticas();
-}
